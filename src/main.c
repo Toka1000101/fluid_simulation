@@ -86,6 +86,15 @@ void update_simulation() {
 					}else if(bounds_ok_opp && cell_available_opp){
 						grid_next[x][y] = CELL_EMPTY;
 						grid_next[new_x_opp][y + 1] = CELL_WATER;
+					}else {
+						int side_dir = (rand() % 2 == 0) ? 1 : -1;
+						int side_x = x + side_dir;
+						bool bounds_ok_side = side_x >= 0 && side_x < GRID_WIDTH;
+						bool cell_available_side = grid[side_x][y] == CELL_EMPTY && grid_next[side_x][y] == CELL_EMPTY;
+						if(bounds_ok_side && cell_available_side) {
+							grid_next[x][y] = CELL_EMPTY;
+							grid_next[side_x][y] = CELL_WATER;
+						}
 					}
 				}
 			}
